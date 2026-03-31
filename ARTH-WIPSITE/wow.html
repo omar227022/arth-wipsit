@@ -1,0 +1,537 @@
+ <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARTH WIP</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Cairo', sans-serif;
+    scroll-behavior: smooth;
+}
+
+:root{
+    --accent: #93C5FD;
+    --accent-glow: rgba(147, 197, 253, 0.5);
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --water-blur: blur(25px);
+}
+
+body{
+    background: url('b.jpg') center/cover fixed no-repeat, linear-gradient(135deg, #1e293b, #0f172a); 
+    color: #fff;
+    overflow-x:hidden;
+    min-height: 100vh;
+}
+
+.particle{
+    position:fixed;
+    width:3px;height:3px;
+    background:var(--accent);
+    border-radius:50%;
+    animation:float 7s linear infinite;
+    z-index: -1;
+    opacity: 0.4;
+}
+
+@keyframes float{
+    0%{transform:translateY(100vh);opacity:0}
+    50%{opacity:0.8}
+    100%{transform:translateY(-10vh);opacity:0}
+}
+
+nav{
+    position:fixed;
+    top:25px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:10px;
+    padding:8px 20px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--water-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    z-index:1000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+nav a, .nav-btn{
+    padding:10px 18px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 30px;
+    transition: 0.3s;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+nav a:hover, .nav-btn:hover{
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--accent);
+}
+
+.hero{
+    height:100vh;
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    text-align: center;
+}
+
+.typewriter {
+    font-size: clamp(40px, 10vw, 90px);
+    font-weight: 900;
+    color: #fff;
+    overflow: hidden;
+    border-left: .15em solid var(--accent);
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 5px;
+    width: 0;
+    animation: typing 3s steps(20, end) forwards, blink-caret .75s step-end infinite;
+    text-shadow: 0 0 40px var(--accent-glow);
+}
+
+@keyframes typing { from { width: 0 } to { width: 100% } }
+@keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent); } }
+
+.section-title{
+    text-align:center;
+    margin:120px 0 60px;
+    font-size: 38px;
+    color: var(--accent);
+}
+
+.reveal{ opacity:0; transform:translateY(50px); transition: 0.8s ease-out; }
+.reveal.show{ opacity:1; transform:translateY(0); }
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:30px;
+    padding:20px;
+    max-width:1300px;
+    margin:auto;
+}
+
+.feature-card{
+    background: var(--glass-bg);
+    backdrop-filter: var(--water-blur);
+    border: 1px solid var(--glass-border);
+    border-radius:30px;
+    padding:45px 30px;
+    text-align: center;
+    transition: 0.4s;
+}
+
+.feature-card:hover{
+    transform:translateY(-10px);
+    border-color: var(--accent);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.5);
+}
+
+.feature-card svg {
+    width: 60px;
+    height: 60px;
+    fill: var(--accent);
+    margin-bottom: 25px;
+    filter: drop-shadow(0 0 10px var(--accent-glow));
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:40px;
+    padding:20px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.card{
+    background: var(--glass-bg);
+    backdrop-filter: var(--water-blur);
+    border: 1px solid var(--glass-border);
+    border-radius:40px;
+    padding:60px 40px;
+    text-align: center;
+    transition:0.5s;
+}
+
+.card:hover{
+    transform:translateY(-15px);
+    border-color: var(--accent);
+    box-shadow: 0 0 40px var(--accent-glow);
+}
+
+.card svg {
+    width: 70px;
+    height: 70px;
+    fill: var(--accent);
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 15px var(--accent-glow));
+}
+
+.btn{
+    width: 100%;
+    margin-top:25px;
+    padding:18px;
+    border:1px solid var(--accent);
+    border-radius:20px;
+    background: transparent;
+    color:var(--accent);
+    cursor:pointer;
+    font-weight: 900;
+    transition: 0.3s;
+}
+
+.btn:hover{ background: var(--accent); color: #000; }
+
+.realms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.realm-static-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    height: 400px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.realm-static-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8);
+    transition: 0.4s;
+}
+
+.realm-static-card .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 0.4s;
+    backdrop-filter: blur(3px);
+}
+
+.realm-static-card:hover .overlay {
+    opacity: 1;
+}
+
+.realm-static-card:hover img {
+    transform: scale(1.05);
+    filter: brightness(1);
+}
+
+.realm-static-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+    transform: skewX(-25deg);
+    animation: shine 5s infinite;
+    pointer-events: none;
+}
+
+@keyframes shine {
+    0% { left: -150%; }
+    20% { left: 200%; }
+    100% { left: 200%; }
+}
+
+.cart{
+    position:fixed;
+    left:-450px;
+    top:0;
+    width:400px;
+    height:100vh;
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(40px);
+    padding:40px;
+    transition:0.6s cubic-bezier(0.85, 0, 0.15, 1);
+    border-right: 1px solid var(--accent);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart.open{ left:0 }
+
+#cartContent {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding-right: 10px;
+}
+
+.cart-item {
+    background: rgba(255,255,255,0.05);
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.del-btn {
+    color: #ff4444;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    outline: none;
+}
+
+footer {
+    text-align: center;
+    padding: 80px 20px;
+    margin-top: 100px;
+    background: rgba(15, 23, 42, 0.3);
+    backdrop-filter: blur(30px);
+    border-top: 1px solid var(--glass-border);
+    position: relative;
+    z-index: 10;
+}
+
+</style>
+</head>
+
+
+<audio id="hoverSound" src="sot.mp4" preload="auto"></audio>
+
+<script>
+let audioEnabled = false;
+function enableAudio() { audioEnabled = true; }
+function playSot() {
+    if(audioEnabled) {
+        const s = document.getElementById("hoverSound");
+        s.currentTime = 0;
+        s.play().catch(()=>{});
+    }
+}
+
+for(let i=0;i<40;i++){
+    let p=document.createElement("div");
+    p.className="particle";
+    p.style.left=Math.random()*100+"vw";
+    p.style.animationDuration=(5+Math.random()*10)+"s";
+    document.body.appendChild(p);
+}
+</script>
+
+<nav>
+    <a href="#features" onmouseenter="playSot()">المميزات</a>
+    <a href="#services" onmouseenter="playSot()">الخدمات</a>
+    <a href="#realms" onmouseenter="playSot()">النماذج</a>
+    <div class="nav-btn" onclick="toggleCart()" onmouseenter="playSot()">🛒 السلة (<span id="countTop">0</span>)</div>
+</nav>
+
+<div class="hero">
+    <div class="typewriter">ARTH-wip</div>
+    <p class="reveal" style="color:var(--accent); margin-top:15px; letter-spacing:3px;">بوابتك للعالم الرقمي</p>
+</div>
+
+<h2 id="features" class="section-title reveal">المميزات</h2>
+<div class="features">
+    <div class="feature-card reveal">
+        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <h3>سرعة التوصيل</h3>
+        <p>تجهيز فوري قياسي.</p>
+    </div>
+    <div class="feature-card reveal">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l1 10 9 5 9-5 1-10L12 2zm0 18.5V4l-7 3.5 1 8 6 3 6-3 1-8L12 20.5z"/></svg>
+        <h3>حماية سيبرانية</h3>
+        <p>أمان عالمي.</p>
+    </div>
+    <div class="feature-card reveal">
+        <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-3zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 9h2v2H7V9zm10 0h-2v2h2V9zm-3 4H10v2h4v-2z"/></svg>
+        <h3>موقع من ذوقك</h3>
+        <p>تصميم مخصص.</p>
+    </div>
+    <div class="feature-card reveal">
+        <svg viewBox="0 0 24 24"><path d="M4 6h18V4H4c-1.1 0-2 .9-2 2v11H0v3h14v-3H4V6zm19 2h-6c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1zm-1 9h-4v-7h4v7z"/></svg>
+        <h3>دعم شامل</h3>
+        <p>جوال وكمبيوتر.</p>
+    </div>
+    <div class="feature-card reveal">
+        <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+        <h3>سعر الطلاب</h3>
+        <p>دعم كامل لكم.</p>
+    </div>
+    <div class="feature-card reveal">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+        <h3>دعم ملكي</h3>
+        <p>معك دائماً.</p>
+    </div>
+</div>
+
+<h2 id="services" class="section-title reveal">الخدمات</h2>
+<div class="grid">
+    <div class="card reveal">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg>
+        <h3>موقع كامل</h3>
+        <p style="color:var(--accent); font-size:2.5rem; font-weight:900;">146 SAR</p>
+        <button class="btn" onclick="addItem('موقع كامل', 146)">إضافة للسلة</button>
+    </div>
+    <div class="card reveal">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 9h-2V7h-2v5H6v2h2v5h2v-5h2v-2z"/></svg>
+        <h3>منظم حسابات</h3>
+        <p style="color:var(--accent); font-size:2.5rem; font-weight:900;">77 SAR</p>
+        <button class="btn" onclick="addItem('منظم حسابات', 77)">إضافة للسلة</button>
+    </div>
+    <div class="card reveal">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
+        <h3>تسريع الموقع</h3>
+        <p style="color:var(--accent); font-size:2.5rem; font-weight:900;">67 SAR</p>
+        <button class="btn" onclick="addItem('تسريع الموقع', 67)">إضافة للسلة</button>
+    </div>
+</div>
+
+<h2 id="realms" class="section-title reveal">نماذج أعمالنا</h2>
+<div class="realms-grid reveal">
+    <div class="realm-static-card">
+        <img src="sw1.jpg" alt="Model 1">
+        <div class="overlay"><span style="border:1px solid #93C5FD; padding:10px 20px; border-radius:10px; font-weight:bold; color:#fff;">اضغط للتجربة</span></div>
+    </div>
+    <div class="realm-static-card">
+        <img src="sw2.jpg" alt="Model 2">
+        <div class="overlay"><span style="border:1px solid #93C5FD; padding:10px 20px; border-radius:10px; font-weight:bold; color:#fff;">اضغط للتجربة</span></div>
+    </div>
+    <div class="realm-static-card">
+        <img src="sw3.jpg" alt="Model 3">
+        <div class="overlay"><span style="border:1px solid #93C5FD; padding:10px 20px; border-radius:10px; font-weight:bold; color:#fff;">اضغط للتجربة</span></div>
+    </div>
+    <div class="realm-static-card">
+        <img src="sw4.jpg" alt="Model 4">
+        <div class="overlay"><span style="border:1px solid #93C5FD; padding:10px 20px; border-radius:10px; font-weight:bold; color:#fff;">اضغط للتجربة</span></div>
+    </div>
+</div>
+
+<div class="cart" id="cart">
+    <h2 style="color: var(--accent); margin-bottom: 20px;">خزينة الطلبات</h2>
+    
+    <div class="input-group">
+        <label style="font-size: 12px; opacity: 0.6;">رقم جوالك للتواصل:</label>
+        <input type="text" id="userPhone" placeholder="05xxxxxxxx">
+    </div>
+
+    <div id="cartContent">
+    </div>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:20px;">
+        <p>المجموع: <span id="totalPrice" style="color:var(--accent); font-size:1.8rem; font-weight:900;">0</span></p>
+        <button class="btn" style="background:var(--accent); color:#000;" onclick="sendOrder()">إتمام الطلب (واتساب)</button>
+        <button class="btn" onclick="toggleCart()" style="border:none; color:red; font-size:12px;">إغلاق</button>
+    </div>
+</div>
+
+<footer>
+    <h3 style="color: var(--accent); margin-bottom: 10px;">ARTH PROJECT</h3>
+    <p style="opacity: 0.6; font-size: 14px;">جميع الحقوق محفوظة © أرث 🇸🇦</p>
+</footer>
+
+<script>
+let cart = [];
+let total = 0;
+
+function toggleCart(){ document.getElementById("cart").classList.toggle("open"); }
+
+function addItem(name, price){
+    cart.push({id: Date.now(), name, price});
+    updateCart();
+}
+
+function removeItem(id){
+    const index = cart.findIndex(item => item.id === id);
+    if(index > -1){
+        cart.splice(index, 1);
+        updateCart();
+    }
+}
+
+function updateCart(){
+    const box = document.getElementById("cartContent");
+    const countTop = document.getElementById("countTop");
+    const totalDisplay = document.getElementById("totalPrice");
+    box.innerHTML = cart.length === 0 ? "<p style='opacity:0.4;'>السلة فارغة</p>" : "";
+    
+    total = cart.reduce((sum, item) => sum + item.price, 0);
+    countTop.innerText = cart.length;
+    totalDisplay.innerText = total + " SAR";
+    
+    cart.forEach(item => {
+        let div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+            <span>${item.name}</span>
+            <div>
+                <span style="color:var(--accent); margin-left:15px;">${item.price} SAR</span>
+                <span class="del-btn" onclick="removeItem(${item.id})">×</span>
+            </div>
+        `;
+        box.appendChild(div);
+    });
+}
+
+function sendOrder(){
+    const phone = document.getElementById("userPhone").value;
+    if(!phone) { alert("، حط رقمك عشان أتواصل معك!"); return; }
+    if(cart.length === 0) { alert("السلة فارغة!"); return; }
+
+    let message = `طلب جديد من ARTH PROJECT%0A%0A`;
+    message += `رقم العميل: ${phone}%0A`;
+    message += `الطلبات:%0A`;
+    cart.forEach(item => { message += `- ${item.name} (${item.price} SAR)%0A`; });
+    message += `%0Aالمجموع الكلي: ${total} SAR`;
+
+    const myNumber = "966500000000"; 
+    window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
+}
+
+const els=document.querySelectorAll(".reveal");
+const obs=new IntersectionObserver(e=>{
+    e.forEach(x=>{if(x.isIntersecting)x.target.classList.add("show");else x.target.classList.remove("show")});
+},{threshold:0.1});
+els.forEach(x=>obs.observe(x));
+</script>
+
+</body>
+</html>
